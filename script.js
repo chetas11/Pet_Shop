@@ -27,7 +27,6 @@ var Cat1 = new RequestPets({ name: "Cat", color: "White", breed: "Persian cat", 
 var Dog2 = new RequestPets({ name: "Dog", color: "Brown", breed: "Golden Retriever", age: 4 });
 var Parrots1 = new RequestPets({ name: "Parrot", color: "Blue&Yellow", breed: "Blue and Yellow Macaw", age: 3 });
 AllPets.push(RequestedPet, Cat1, Dog2, Parrots1);
-console.log(AllPets);
 var AvailabilePets = /** @class */ (function () {
     function AvailabilePets() {
     }
@@ -47,10 +46,6 @@ var AvailabilePets = /** @class */ (function () {
     return AvailabilePets;
 }());
 var AllShopPets = new AvailabilePets();
-// PetsCount.addpets("Dog","Red","bullDog");
-// console.log(PetsCount.getCounts("Dog", "Red"))
-// PetsCount.getCounts("Cat")
-// PetsCount.getCounts("Parrot")
 var PetDiv = document.getElementById("PetDiv");
 function CreateInputs() {
     var inputBox = document.createElement("input");
@@ -132,4 +127,8 @@ CountBtn.addEventListener("click", function () {
     CountResult.innerText = "Total Number of " + PetName.value + " in shop: " + String(AllShopPets.getCounts(PetName.value));
     CountResult.classList.add("alert", "alert-warning");
     PetDiv.appendChild(CountResult);
+    var AllInputs = document.querySelectorAll("input");
+    AllInputs.forEach(function (Input) {
+        Input.value = "";
+    });
 });

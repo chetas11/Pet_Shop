@@ -24,7 +24,7 @@ class RequestPets{
         this.Age = ReqData.age;
     }
 
-    PetAvailability(name:String, quantity:Number){
+    PetAvailability(name:String, quantity:Number):String{
         let count = 0
         for(let i=0; i<AllPets.length; i++){
             if(name.toLowerCase() === AllPets[i].Name.toLowerCase()){
@@ -45,7 +45,6 @@ let Cat1 = new RequestPets({name:"Cat",color:"White",breed:"Persian cat",age:2})
 let Dog2 = new RequestPets({name:"Dog",color:"Brown",breed:"Golden Retriever", age:4})
 let Parrots1 = new RequestPets({name:"Parrot",color:"Blue&Yellow",breed:"Blue and Yellow Macaw", age:3})
 AllPets.push(RequestedPet,Cat1,Dog2,Parrots1)
-console.log(AllPets)
 
 
 //-------------- Available Pets Class -------------------------------
@@ -63,7 +62,7 @@ class AvailabilePets{
         AllPets.push(newObj)
     }
 
-    getCounts(name:String){
+    getCounts(name:String):Number{
         let count = 0
         for(let i=0; i<AllPets.length; i++){
             if(name.toLowerCase() === AllPets[i].Name.toLowerCase()){
@@ -79,12 +78,6 @@ class AvailabilePets{
 
 
 let AllShopPets = new AvailabilePets()
-
-// PetsCount.addpets("Dog","Red","bullDog");
-// console.log(PetsCount.getCounts("Dog", "Red"))
-// PetsCount.getCounts("Cat")
-// PetsCount.getCounts("Parrot")
-
 
 let PetDiv = document.getElementById("PetDiv");
 
