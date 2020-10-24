@@ -1,0 +1,38 @@
+body {
+  background-color: #f6f6f6;
+}
+
+h1 {
+  font-size: 5rem;
+  margin-top: 80px;
+  font-family: "Grenze Gotisch", cursive;
+  margin-bottom: 50px;
+  color: #aaaaaa;
+}
+
+i {
+  color: #70adb5;
+}
+
+input,
+h3 {
+  margin: 20px 0px;
+}
+
+.alert {
+  width: 100%;
+}
+
+.btn {
+  display: block;
+  margin: 20px 0px;
+  width: 100%;
+  background-color: #ffcbcb;
+  color: #aaaaaa;
+  font-weight: bolder;
+}
+
+.query {
+  background-color: #70adb5;
+  color: white;
+}
