@@ -42,3 +42,9 @@ h3 {
 .btn:hover {
   color: white;
 }
+
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
