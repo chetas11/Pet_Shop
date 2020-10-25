@@ -43,6 +43,8 @@ h3 {
   color: white;
 }
 
+/* Media Queries */
+
 @media screen and (max-width: 992px) {
   h1 {
     font-size: 4rem;

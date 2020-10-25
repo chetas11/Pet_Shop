@@ -24,7 +24,7 @@ class RequestPets{
         this.Age = ReqData.age;
     }
 
-    PetAvailability(name:String, quantity:Number):String{
+    PetAvailability(name:String, quantity:Number):String{                //Checks Pets Availability
         let count = 0
         for(let i=0; i<AllPets.length; i++){
             if(name.toLowerCase() === AllPets[i].Name.toLowerCase()){
@@ -40,12 +40,6 @@ class RequestPets{
     }
 }
 
-let RequestedPet = new RequestPets({name:"Dog",color:"White",breed:"Siberian Husky",age:5})
-let Cat1 = new RequestPets({name:"Cat",color:"White",breed:"Persian cat",age:2})
-let Dog2 = new RequestPets({name:"Dog",color:"Brown",breed:"Golden Retriever", age:4})
-let Parrots1 = new RequestPets({name:"Parrot",color:"Blue&Yellow",breed:"Blue and Yellow Macaw", age:3})
-AllPets.push(RequestedPet,Cat1,Dog2,Parrots1)
-
 
 //-------------- Available Pets Class -------------------------------
 
@@ -57,12 +51,12 @@ interface AnimalsData{
 
 class AvailabilePets{
 
-    addpets(name:String, color:String, breed:String, age?:Number){
+    addpets(name:String, color:String, breed:String, age?:Number){          //Add new Pet
         let newObj = {Name:name, Color:color, Breed:breed, Age:age}
         AllPets.push(newObj)
     }
 
-    getCounts(name:String):Number{
+    getCounts(name:String):Number{                                          //Get the count of Pets
         let count = 0
         for(let i=0; i<AllPets.length; i++){
             if(name.toLowerCase() === AllPets[i].Name.toLowerCase()){
@@ -75,12 +69,18 @@ class AvailabilePets{
 }
 
 
-
+//-----------------------New Objects from above classes------------------------------
 
 let AllShopPets = new AvailabilePets()
+let RequestedPet = new RequestPets({name:"Dog",color:"White",breed:"Siberian Husky",age:5})
+let Cat1 = new RequestPets({name:"Cat",color:"White",breed:"Persian cat",age:2})
+let Dog2 = new RequestPets({name:"Dog",color:"Brown",breed:"Golden Retriever", age:4})
+let Parrots1 = new RequestPets({name:"Parrot",color:"Blue&Yellow",breed:"Blue and Yellow Macaw", age:3})
+
+AllPets.push(RequestedPet,Cat1,Dog2,Parrots1)       // Adding some data in Array
 
 
-function CreateInputs(){
+function CreateInputs(){                                    //to create Input Fields
     let inputBox = document.createElement("input");
     inputBox.classList.add("form-control","text-center")
     return inputBox;
