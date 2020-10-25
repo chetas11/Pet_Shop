@@ -79,7 +79,6 @@ class AvailabilePets{
 
 let AllShopPets = new AvailabilePets()
 
-let PetDiv = document.getElementById("PetDiv");
 
 function CreateInputs(){
     let inputBox = document.createElement("input");
@@ -92,6 +91,7 @@ function CreateInputs(){
 
 let AddPetbtn = document.getElementById("AddPet");
 let AddedResult = document.createElement("h3");
+let AddDiv = document.getElementById("AddDiv");
 
 let PetName = CreateInputs()
 PetName.setAttribute("placeholder","Enter Pet Type")
@@ -107,20 +107,31 @@ submitbutton.innerText = "Add";
 submitbutton.classList.add("btn","query")
 
 AddPetbtn.addEventListener("click",function(){
-    PetDiv.innerHTML = "";
-    PetDiv.appendChild(PetName)
-    PetDiv.appendChild(PetColor)
-    PetDiv.appendChild(PetBreed)
-    PetDiv.appendChild(PetAge)
-    PetDiv.appendChild(submitbutton)
+    CountDiv.innerHTML = "";
+    QuantityDiv.innerHTML = "";
+    AddedResult.innerHTML = "";
+    AddedResult.classList.remove("alert", "alert-success")
+    AddDiv.appendChild(PetName)
+    AddDiv.appendChild(PetColor)
+    AddDiv.appendChild(PetBreed)
+    AddDiv.appendChild(PetAge)
+    AddDiv.appendChild(submitbutton)
 })
 
 submitbutton.addEventListener("click", function(){
-    PetDiv.innerHTML = "";
-    AllShopPets.addpets(PetName.value,PetColor.value,PetBreed.value,parseInt(PetAge.value)) 
-    Result.innerText = "Added Successfully...Thank you!!!"
-    Result.classList.add("alert", "alert-success")
-    PetDiv.appendChild(Result)
+    AddDiv.innerHTML = "";
+    AddedResult.classList.remove("alert", "alert-success","alert-danger")
+    if(PetName.value && PetColor.value && PetBreed.value){
+        AllShopPets.addpets(PetName.value,PetColor.value,PetBreed.value,parseInt(PetAge.value)) 
+        AddedResult.classList.add("alert", "alert-success")
+        AddedResult.innerText = "Added Successfully...Thank you!!!"
+        AddDiv.appendChild(AddedResult)
+    }else{
+        AddedResult.innerText = "Please Fill All the Details"
+        AddedResult.classList.add("alert", "alert-danger")
+        AddDiv.appendChild(AddedResult)
+    }
+    
 })
 
 
@@ -128,36 +139,37 @@ submitbutton.addEventListener("click", function(){
 
 
 let CheckQuantitybtn = document.getElementById("Quantity");
+let QuantityDiv = document.getElementById("AvailDiv");
+let Result = document.createElement("h3");
 
 let Quantity = CreateInputs()
 Quantity.setAttribute("placeholder","Enter Quantity")
-
-let Result = document.createElement("h3");
-
 
 let Quantitybtn = document.createElement("button")
 Quantitybtn.innerText = "Check Quantity";
 Quantitybtn.classList.add("btn","query")
 
 CheckQuantitybtn.addEventListener("click",function(){
-    PetDiv.innerHTML = "";
-    PetDiv.appendChild(PetName)
-    PetDiv.appendChild(Quantity)
-    PetDiv.appendChild(Quantitybtn)
+    CountDiv.innerHTML = "";
+    AddDiv.innerHTML = "";
+    QuantityDiv.appendChild(PetName)
+    QuantityDiv.appendChild(Quantity)
+    QuantityDiv.appendChild(Quantitybtn)
 })
 
 Quantitybtn.addEventListener("click", function(){
-    PetDiv.innerHTML = "";
+    QuantityDiv.innerHTML = "";
+    Result.classList.remove("alert", "alert-danger","alert-success")
     let AvailResult = RequestedPet.PetAvailability(PetName.value,parseInt(Quantity.value))
 
     if(AvailResult === "Available"){
     Result.innerText = "The Requested Quantity is Available."
-    Result.classList.add("alert", "alert-info")
-    PetDiv.appendChild(Result)
+    Result.classList.add("alert", "alert-success")
+    QuantityDiv.appendChild(Result)
     }else{
     Result.innerText = "Sorry Requested Quantity is not Available."
-    Result.classList.add("alert", "alert-info")
-    PetDiv.appendChild(Result)
+    Result.classList.add("alert", "alert-danger")
+    QuantityDiv.appendChild(Result)
     }
 
 })
@@ -165,6 +177,7 @@ Quantitybtn.addEventListener("click", function(){
 //---------------Check Count------------------
 
 let checkCount = document.getElementById("Count");
+let CountDiv = document.getElementById("CountDiv");
 
 let CountBtn = document.createElement("button")
 CountBtn.innerText = "Check Count";
@@ -173,18 +186,29 @@ let CountResult = document.createElement("h3");
 
 
 checkCount.addEventListener("click",function(){
-    PetDiv.innerHTML = "";
-    PetDiv.appendChild(PetName)
-    PetDiv.appendChild(CountBtn)
+    QuantityDiv.innerHTML = "";
+    AddDiv.innerHTML = "";
+    CountResult.innerHTML = "";
+    CountResult.classList.remove("alert", "alert-success","alert-danger")
+    CountDiv.appendChild(PetName)
+    CountDiv.appendChild(CountBtn)
 })
 
 CountBtn.addEventListener("click", function(){
-    PetDiv.innerHTML = "";
-    AllShopPets.getCounts(PetName.value)
-    console.log(AllShopPets.getCounts(PetName.value))
-    CountResult.innerText = "Total Number of "+PetName.value+" in shop: "+String(AllShopPets.getCounts(PetName.value))
-    CountResult.classList.add("alert", "alert-warning")
-    PetDiv.appendChild(CountResult)
+    CountResult.innerHTML = "";
+    CountDiv.innerHTML = "";
+    CountResult.classList.remove("alert", "alert-info")
+    if(PetName.value){
+        AllShopPets.getCounts(PetName.value)
+        CountResult.innerText = "Total Number of "+PetName.value+"'s in shop: "+String(AllShopPets.getCounts(PetName.value))
+        CountResult.classList.add("alert", "alert-success")
+        CountDiv.appendChild(CountResult)
+    }else{
+        CountResult.innerHTML = "Enter Pet Type";
+        CountResult.classList.add("alert", "alert-danger")
+        CountDiv.appendChild(CountResult)
+    }
+    
 
 })
 

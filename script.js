@@ -46,7 +46,6 @@ var AvailabilePets = /** @class */ (function () {
     return AvailabilePets;
 }());
 var AllShopPets = new AvailabilePets();
-var PetDiv = document.getElementById("PetDiv");
 function CreateInputs() {
     var inputBox = document.createElement("input");
     inputBox.classList.add("form-control", "text-center");
@@ -55,6 +54,7 @@ function CreateInputs() {
 //---------------Add Pet------------------
 var AddPetbtn = document.getElementById("AddPet");
 var AddedResult = document.createElement("h3");
+var AddDiv = document.getElementById("AddDiv");
 var PetName = CreateInputs();
 PetName.setAttribute("placeholder", "Enter Pet Type");
 var PetColor = CreateInputs();
@@ -67,68 +67,90 @@ var submitbutton = document.createElement("button");
 submitbutton.innerText = "Add";
 submitbutton.classList.add("btn", "query");
 AddPetbtn.addEventListener("click", function () {
-    PetDiv.innerHTML = "";
-    PetDiv.appendChild(PetName);
-    PetDiv.appendChild(PetColor);
-    PetDiv.appendChild(PetBreed);
-    PetDiv.appendChild(PetAge);
-    PetDiv.appendChild(submitbutton);
+    CountDiv.innerHTML = "";
+    QuantityDiv.innerHTML = "";
+    AddedResult.innerHTML = "";
+    AddedResult.classList.remove("alert", "alert-success");
+    AddDiv.appendChild(PetName);
+    AddDiv.appendChild(PetColor);
+    AddDiv.appendChild(PetBreed);
+    AddDiv.appendChild(PetAge);
+    AddDiv.appendChild(submitbutton);
 });
 submitbutton.addEventListener("click", function () {
-    PetDiv.innerHTML = "";
-    AllShopPets.addpets(PetName.value, PetColor.value, PetBreed.value, parseInt(PetAge.value));
-    Result.innerText = "Added Successfully...Thank you!!!";
-    Result.classList.add("alert", "alert-success");
-    PetDiv.appendChild(Result);
+    AddDiv.innerHTML = "";
+    AddedResult.classList.remove("alert", "alert-success", "alert-danger");
+    if (PetName.value && PetColor.value && PetBreed.value) {
+        AllShopPets.addpets(PetName.value, PetColor.value, PetBreed.value, parseInt(PetAge.value));
+        AddedResult.classList.add("alert", "alert-success");
+        AddedResult.innerText = "Added Successfully...Thank you!!!";
+        AddDiv.appendChild(AddedResult);
+    }
+    else {
+        AddedResult.innerText = "Please Fill All the Details";
+        AddedResult.classList.add("alert", "alert-danger");
+        AddDiv.appendChild(AddedResult);
+    }
 });
 //---------------Check Availability------------------
 var CheckQuantitybtn = document.getElementById("Quantity");
+var QuantityDiv = document.getElementById("AvailDiv");
+var Result = document.createElement("h3");
 var Quantity = CreateInputs();
 Quantity.setAttribute("placeholder", "Enter Quantity");
-var Result = document.createElement("h3");
 var Quantitybtn = document.createElement("button");
 Quantitybtn.innerText = "Check Quantity";
 Quantitybtn.classList.add("btn", "query");
 CheckQuantitybtn.addEventListener("click", function () {
-    PetDiv.innerHTML = "";
-    PetDiv.appendChild(PetName);
-    PetDiv.appendChild(Quantity);
-    PetDiv.appendChild(Quantitybtn);
+    CountDiv.innerHTML = "";
+    AddDiv.innerHTML = "";
+    QuantityDiv.appendChild(PetName);
+    QuantityDiv.appendChild(Quantity);
+    QuantityDiv.appendChild(Quantitybtn);
 });
 Quantitybtn.addEventListener("click", function () {
-    PetDiv.innerHTML = "";
+    QuantityDiv.innerHTML = "";
+    Result.classList.remove("alert", "alert-danger", "alert-success");
     var AvailResult = RequestedPet.PetAvailability(PetName.value, parseInt(Quantity.value));
     if (AvailResult === "Available") {
         Result.innerText = "The Requested Quantity is Available.";
-        Result.classList.add("alert", "alert-info");
-        PetDiv.appendChild(Result);
+        Result.classList.add("alert", "alert-success");
+        QuantityDiv.appendChild(Result);
     }
     else {
         Result.innerText = "Sorry Requested Quantity is not Available.";
-        Result.classList.add("alert", "alert-info");
-        PetDiv.appendChild(Result);
+        Result.classList.add("alert", "alert-danger");
+        QuantityDiv.appendChild(Result);
     }
 });
 //---------------Check Count------------------
 var checkCount = document.getElementById("Count");
+var CountDiv = document.getElementById("CountDiv");
 var CountBtn = document.createElement("button");
 CountBtn.innerText = "Check Count";
 CountBtn.classList.add("btn", "query");
 var CountResult = document.createElement("h3");
 checkCount.addEventListener("click", function () {
-    PetDiv.innerHTML = "";
-    PetDiv.appendChild(PetName);
-    PetDiv.appendChild(CountBtn);
+    QuantityDiv.innerHTML = "";
+    AddDiv.innerHTML = "";
+    CountResult.innerHTML = "";
+    CountResult.classList.remove("alert", "alert-success", "alert-danger");
+    CountDiv.appendChild(PetName);
+    CountDiv.appendChild(CountBtn);
 });
 CountBtn.addEventListener("click", function () {
-    PetDiv.innerHTML = "";
-    AllShopPets.getCounts(PetName.value);
-    console.log(AllShopPets.getCounts(PetName.value));
-    CountResult.innerText = "Total Number of " + PetName.value + " in shop: " + String(AllShopPets.getCounts(PetName.value));
-    CountResult.classList.add("alert", "alert-warning");
-    PetDiv.appendChild(CountResult);
-    var AllInputs = document.querySelectorAll("input");
-    AllInputs.forEach(function (Input) {
-        Input.value = "";
-    });
+    CountResult.innerHTML = "";
+    CountDiv.innerHTML = "";
+    CountResult.classList.remove("alert", "alert-info");
+    if (PetName.value) {
+        AllShopPets.getCounts(PetName.value);
+        CountResult.innerText = "Total Number of " + PetName.value + "'s in shop: " + String(AllShopPets.getCounts(PetName.value));
+        CountResult.classList.add("alert", "alert-success");
+        CountDiv.appendChild(CountResult);
+    }
+    else {
+        CountResult.innerHTML = "Enter Pet Type";
+        CountResult.classList.add("alert", "alert-danger");
+        CountDiv.appendChild(CountResult);
+    }
 });

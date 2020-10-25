@@ -1,5 +1,7 @@
 body {
-  background-color: #f6f6f6;
+  background-image: url("./background.jpg");
+  opacity: 0.9;
+  background-repeat: repeat-x;
 }
 
 h1 {
@@ -7,11 +9,11 @@ h1 {
   margin-top: 80px;
   font-family: "Grenze Gotisch", cursive;
   margin-bottom: 50px;
-  color: #aaaaaa;
+  color: #214252;
 }
 
 i {
-  color: #70adb5;
+  color: #1f6f8b;
 }
 
 input,
@@ -27,12 +29,16 @@ h3 {
   display: block;
   margin: 20px 0px;
   width: 100%;
-  background-color: #b0cac7;
+  background-color: #1f6f8b;
   color: white;
   font-weight: bolder;
 }
 
 .query {
-  background-color: #70adb5;
+  background-color: #555555;
+  color: white;
+}
+
+.btn:hover {
   color: white;
 }
